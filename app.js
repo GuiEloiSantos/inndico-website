@@ -7,8 +7,9 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
+var sm = require('sitemap');
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -42,5 +43,28 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
+// Sitemap constructor
+
+var sitemap = sm.createSitemap ({
+    hostname: 'http://example.com',
+    cacheTime: 600000,        // 600 sec - cache purge period
+    urls: [
+        { url: '/',  changefreq: 'daily', priority: 1 },
+        { url: '/contact/',  changefreq: 'weekly',  priority: 0.7 }
+    ]
+});
+
+app.get('/sitemap.xml', function(req, res) {
+    sitemap.toXML( function (err, xml) {
+        if (err) {
+            return res.status(500).end();
+        }
+        res.header('Content-Type', 'application/xml');
+        res.send( xml );
+    });
+});
+// End of Sitemap constructor
 
 module.exports = app;
