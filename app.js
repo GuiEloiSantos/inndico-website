@@ -9,7 +9,7 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var sm = require('sitemap');
 var app = express();
-
+var compression = require('compression')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -21,7 +21,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(compression())
 // Sitemap construct
 
 var sitemap = sm.createSitemap ({
