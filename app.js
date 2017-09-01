@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 
-// Sitemap constructor
+// Sitemap construct
 
 var sitemap = sm.createSitemap ({
     hostname: 'https://www.inndico.com/',
