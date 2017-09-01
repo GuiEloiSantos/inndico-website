@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var sm = require('sitemap');
 var app = express();
 
 
@@ -20,6 +21,30 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// Sitemap construct
+
+var sitemap = sm.createSitemap ({
+    hostname: 'https://www.inndico.com/',
+    cacheTime: 600000,        // 600 sec - cache purge period
+    urls: [
+        { url: '/',  changefreq: 'daily', priority: 1 },
+        { url: '/contact/',  changefreq: 'weekly',  priority: 0.7 }
+    ]
+});
+
+app.get('/sitemap.xml', function(req, res) {
+    sitemap.toXML( function (err, xml) {
+        if (err) {
+            return res.status(500).end();
+        }
+        res.header('Content-Type', 'application/xml');
+        res.send( xml );
+    });
+});
+// End of Sitemap constructor
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 
