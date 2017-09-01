@@ -29,7 +29,7 @@ app.use('/users', users);
 // Sitemap constructor
 
 var sitemap = sm.createSitemap ({
-    hostname: 'http://example.com',
+    hostname: 'https://www.inndico.com/',
     cacheTime: 600000,        // 600 sec - cache purge period
     urls: [
         { url: '/',  changefreq: 'daily', priority: 1 },
