@@ -23,6 +23,7 @@ router.get('/sitemap.xml', function(req, res) {
             { url: '/contact/',  changefreq: 'weekly',  priority: 0.7 }
         ]
     });
+    console.log("test");
     sitemap.toXML( function (err, xml) {
         if (err) {
             return res.status(500).end();
