@@ -34,6 +34,7 @@ var sitemap = sm.createSitemap ({
 });
 
 app.get('/sitemap.xml', function(req, res) {
+    console.log('teste');
     sitemap.toXML( function (err, xml) {
         if (err) {
             return res.status(500).end();
